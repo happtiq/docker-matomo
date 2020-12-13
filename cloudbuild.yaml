@@ -1,5 +1,5 @@
 steps:
 - name: 'gcr.io/cloud-builders/docker'
-  args: [ 'build', '-t', 'eu.gcr.io/$PROJECT_ID/matomo:${_VARIANT}', '-f', '${_VARIANT}/Dockerfile' ]
+  args: [ 'build', '-t', 'eu.gcr.io/$PROJECT_ID/matomo:${_VARIANT}', '-f', '${_VARIANT}/Dockerfile', '.' ]
 substitutions:
     _VARIANT: "fpm-alpine"
