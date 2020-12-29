@@ -1,3 +1,12 @@
+FROM golang:1.15.6-alpine AS builder
+
+ARG GCSFUSE_VERSION=0.32.0
+
+RUN apk add --no-cache git
+WORKDIR /go
+# ENV GOPATH /go
+RUN GO111MODULE=on go get -u github.com/googlecloudplatform/gcsfuse@v0.32.0
+
 FROM php:7.4-fpm-alpine
 
 LABEL maintainer="pierre@piwik.org"
@@ -14,6 +23,8 @@ RUN set -ex; \
 		libzip-dev \
 		openldap-dev \
 		pcre-dev \
+		fuse \
+		ca-certificates \
 	; \
 	\
 	docker-php-ext-configure gd --with-freetype --with-jpeg; \
@@ -105,6 +116,8 @@ RUN set -ex; \
 COPY --chown=1000:1000 common.config.ini.php /usr/src/matomo/config/common.config.ini.php
 
 COPY --chown=1000:1000 bootstrap.php /usr/src/matomo/bootstrap.php
+
+COPY --from=builder /go/bin/gcsfuse /usr/local/bin
 
 COPY docker-entrypoint.sh /entrypoint.sh
 

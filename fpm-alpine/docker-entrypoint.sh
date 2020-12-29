@@ -26,7 +26,10 @@ if [ ! -s "/var/www/html/misc/DBIP-City.mmdb" ]; then
 fi
 
 # Check if already installed
-if [ -f /data/config/config.ini.php ]; then
+if [ -f /data/config/config.ini.php ] || [ -f /config/config.ini.php ]; then
+    if [ -f  /config/config.ini.php ]; then
+        ln -s /config/config.ini.php /data/config/config.ini.php
+    fi
     echo "Setting Matomo log level to $LOG_LEVEL..."
     su www-data -s /bin/sh -c "php /var/www/html/console config:set --section='log' --key='log_level' --value='$LOG_LEVEL'"
 
