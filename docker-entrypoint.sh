@@ -18,6 +18,18 @@ if [ ! -e matomo.php ]; then
 	chown -R www-data:www-data .
 fi
 
+# Switch the plugins directory to persistent volume if mountpoint available
+if [ -d "/plugins" ]; then
+    if [ -d "/var/www/html/plugins" ]; then
+        cp -Rf /var/www/html/plugins/. /plugins/
+        chown -R www-data:www-data /plugins
+        rm -Rf /var/www/html/plugins
+    fi
+    if [ ! -L "/var/www/html/plugins" ]; then
+        ln -s /plugins/ /var/www/html/plugins
+    fi
+fi
+
 cp -Rf /var/www/html/config /data/
 
 if [ ! -s "/var/www/html/misc/DBIP-City.mmdb" ]; then
