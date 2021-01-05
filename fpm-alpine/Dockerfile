@@ -113,6 +113,9 @@ RUN set -ex; \
 	apk del .fetch-deps; \
     rm *.zip;
 
+RUN set -ex; \
+    apk add --no-cache rsync;
+
 COPY --chown=1000:1000 common.config.ini.php /usr/src/matomo/config/common.config.ini.php
 
 COPY --chown=1000:1000 bootstrap.php /usr/src/matomo/bootstrap.php

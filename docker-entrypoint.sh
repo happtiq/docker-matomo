@@ -15,14 +15,15 @@ chown -R www-data:www-data /data
 
 if [ ! -e matomo.php ]; then
 	cp -r /usr/src/matomo/* /var/www/html/
-	chown -R www-data:www-data .
+	#chown -R www-data:www-data .
+    chown -R www-data:www-data /var/www/html/
 fi
 
 # Switch the plugins directory to persistent volume if mountpoint available
 if [ -d "/plugins" ]; then
     if [ -d "/var/www/html/plugins" ]; then
-        cp -Rf /var/www/html/plugins/. /plugins/
-        chown -R www-data:www-data /plugins
+        #cp -Rf /var/www/html/plugins/. /plugins/
+        rsync -aW --no-compress /var/www/html/plugins/. /plugins/
         rm -Rf /var/www/html/plugins
     fi
     if [ ! -L "/var/www/html/plugins" ]; then
