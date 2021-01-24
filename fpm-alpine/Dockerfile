@@ -113,11 +113,6 @@ RUN set -ex; \
 	apk del .fetch-deps; \
     rm *.zip;
 
-# Prevent bug fixed in matomo-org/matomo-package#124
-RUN set -ex; \
-	rm /usr/src/matomo/vendor/bin/lessc; 
-
-
 RUN set -ex; \
     apk add --no-cache rsync;
 
