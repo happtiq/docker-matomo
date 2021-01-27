@@ -22,9 +22,13 @@ fi
 # Switch the plugins directory to persistent volume if mountpoint available
 if [ -d "/plugins" ]; then
     if [ -d "/var/www/html/plugins" ]; then
-        #cp -Rf /var/www/html/plugins/. /plugins/
-        rsync -aW --no-compress /var/www/html/plugins/. /plugins/
-        rm -Rf /var/www/html/plugins
+        if [ ! -f "/plugins/SYNC_IN_PROGRESS.lock"]; then
+            #cp -Rf /var/www/html/plugins/. /plugins/
+            touch /plugins/SYNC_IN_PROGRESS.lock
+            rsync -aW --no-compress /var/www/html/plugins/. /plugins/
+            rm -Rf /var/www/html/plugins
+            rm /plugins/SYNC_IN_PROGRESS.lock
+        fi
     fi
     if [ ! -L "/var/www/html/plugins" ]; then
         ln -s /plugins/ /var/www/html/plugins
