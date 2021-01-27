@@ -116,6 +116,10 @@ RUN set -ex; \
 RUN set -ex; \
     apk add --no-cache rsync;
 
+# Bump max_children for php-fpm to 20
+RUN set -ex; \
+	sed -i 's/pm.max_children = 5/pm.max_children = 20/g' /usr/local/etc/php-fpm.d/www.conf;
+
 COPY --chown=1000:1000 common.config.ini.php /usr/src/matomo/config/common.config.ini.php
 
 COPY --chown=1000:1000 bootstrap.php /usr/src/matomo/bootstrap.php
