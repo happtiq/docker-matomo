@@ -122,7 +122,7 @@ RUN set -ex; \
 
 # Increase maximum php memory for archive jobs
 RUN set -ex; \
-	sed -i 's/memory_limit=512M/memory_limit=2048M/g' /usr/local/etc/php/conf.d/php-matomo.ini; 
+	sed -i 's/memory_limit=512M/memory_limit=4096M/g' /usr/local/etc/php/conf.d/php-matomo.ini; 
 
 COPY --chown=1000:1000 common.config.ini.php /usr/src/matomo/config/common.config.ini.php
 
