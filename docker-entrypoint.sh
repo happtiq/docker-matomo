@@ -55,7 +55,7 @@ if [ -f /data/config/config.ini.php ] || [ -f /config/config.ini.php ]; then
     su www-data -s /bin/sh -c "php /var/www/html/console config:set --section='log' --key='log_level' --value='$LOG_LEVEL'"
 
     echo "Upgrading and setting Matomo configuration..."
-    su www-data -s /bin/sh -c "php /var/www/html/console core:update --yes --no-interaction"
+    #su www-data -s /bin/sh -c "php /var/www/html/console core:update --yes --no-interaction"
     su www-data -s /bin/sh -c "php /var/www/html/console config:set --section='General' --key='minimum_memory_limit' --value='-1'"
 else
     echo ">>"
