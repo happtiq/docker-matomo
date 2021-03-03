@@ -26,7 +26,7 @@ if [ -d "/plugins" ]; then
             #cp -Rf /var/www/html/plugins/. /plugins/
             touch /plugins/SYNC_IN_PROGRESS.lock
             rsync -aW --no-compress /var/www/html/plugins/. /plugins/
-            rm -Rf /var/www/html/plugins
+            mv /var/www/html/plugins /var/www/html/plugins.docker
             rm /plugins/SYNC_IN_PROGRESS.lock
         fi
     fi
