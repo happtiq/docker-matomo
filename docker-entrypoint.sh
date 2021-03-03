@@ -31,7 +31,8 @@ if [ -d "/plugins" ]; then
         fi
     fi
     if [ ! -L "/var/www/html/plugins" ]; then
-        ln -s /plugins/ /var/www/html/plugins
+        mv /var/www/html/plugins /var/www/html/plugins.docker
+        ln -s /plugins /var/www/html/plugins
     fi
 fi
 
