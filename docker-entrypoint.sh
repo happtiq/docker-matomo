@@ -24,7 +24,7 @@ if [ -d "/plugins" ]; then
     echo "Plugin sync configured... /plugin exists"
     if [ -d "/var/www/html/plugins" ]; then
         echo "Local plugin directory found in /var/www/html/plugins..."
-        if [ ! -f "/plugins/SYNC_IN_PROGRESS.lock"]; then
+        if [ ! -f "/plugins/SYNC_IN_PROGRESS.lock" ]; then
             echo "Starting plugin sync..."
             #cp -Rf /var/www/html/plugins/. /plugins/
             touch /plugins/SYNC_IN_PROGRESS.lock
@@ -43,7 +43,7 @@ fi
 
 cp -Rf /var/www/html/config /data/
 
-if [ ! -s "/data/geoip/DBIP-City.mmdb"]; then
+if [ ! -s "/data/geoip/DBIP-City.mmdb" ]; then
     mv /var/geoip/DBIP-City.mmdb /data/geoip/DBIP-City.mmdb
 fi
 
