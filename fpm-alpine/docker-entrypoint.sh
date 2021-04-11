@@ -21,16 +21,21 @@ fi
 
 # Switch the plugins directory to persistent volume if mountpoint available
 if [ -d "/plugins" ]; then
+    echo "Plugin sync configured... /plugin exists"
     if [ -d "/var/www/html/plugins" ]; then
+        echo "Local plugin directory found in /var/www/html/plugins..."
         if [ ! -f "/plugins/SYNC_IN_PROGRESS.lock"]; then
+            echo "Starting plugin sync..."
             #cp -Rf /var/www/html/plugins/. /plugins/
             touch /plugins/SYNC_IN_PROGRESS.lock
             rsync -aW --no-compress /var/www/html/plugins/. /plugins/
             mv /var/www/html/plugins /var/www/html/plugins.docker
             rm /plugins/SYNC_IN_PROGRESS.lock
+            echo "Completed plugin sync..."
         fi
     fi
     if [ ! -L "/var/www/html/plugins" ]; then
+        echo "Creating symlink for plugin directory..."
         mv /var/www/html/plugins /var/www/html/plugins.docker
         ln -s /plugins /var/www/html/plugins
     fi
