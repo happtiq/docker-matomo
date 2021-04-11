@@ -30,6 +30,8 @@ if [ -d "/plugins" ]; then
             touch /plugins/SYNC_IN_PROGRESS.lock
             rsync -aW --no-compress /var/www/html/plugins/. /plugins/
             mv /var/www/html/plugins /var/www/html/plugins.docker
+            echo "Creating symlink for plugin directory..."
+            ln -s /plugins /var/www/html/plugins
             rm /plugins/SYNC_IN_PROGRESS.lock
             echo "Completed plugin sync..."
         fi
