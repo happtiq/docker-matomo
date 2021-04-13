@@ -92,7 +92,7 @@ RUN curl -fsSL -o geoip.gz \
     gunzip -c geoip.gz > /var/geoip/DBIP-City.mmdb && \
 	rm geoip.gz
 
-COPY php.ini /usr/local/etc/php/conf.d/php-matomo.ini
+COPY php-archive.ini /usr/local/etc/php/conf.d/php-matomo.ini
 
 # https://blog.maxmind.com/2019/12/18/significant-changes-to-accessing-and-using-geolite2-databases/
 #RUN set -ex; \
@@ -121,8 +121,8 @@ RUN set -ex; \
 	sed -i 's/pm.max_children = 5/pm.max_children = 20/g' /usr/local/etc/php-fpm.d/www.conf;
 
 # Increase maximum php memory for archive jobs
-RUN set -ex; \
-	sed -i 's/memory_limit=512M/memory_limit=6144M/g' /usr/local/etc/php/conf.d/php-matomo.ini; 
+# RUN set -ex; \
+# 	sed -i 's/memory_limit=512M/memory_limit=6144M/g' /usr/local/etc/php/conf.d/php-matomo.ini; 
 
 COPY --chown=1000:1000 common.config.ini.php /usr/src/matomo/config/common.config.ini.php
 
