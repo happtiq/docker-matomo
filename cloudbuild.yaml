@@ -9,5 +9,5 @@ steps:
   args: ['push', 'eu.gcr.io/$PROJECT_ID/matomo:${_VERSION}-${_VARIANT}-archive']
 substitutions:
     _VARIANT: "fpm-alpine"
-    _VERSION: "4.2.1"
+    _VERSION: "4.3.1"
     
